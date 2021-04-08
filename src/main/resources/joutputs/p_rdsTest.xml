@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages>
+	<joutput id="rds_test1" name="测试关系型数据库1"  description=""> 
+		<jTemplate>
+		<![CDATA[
+			{
+			#if($proList&&$proList.rows.size()>0)
+				"projects":[
+					#foreach($row in $proList.rows)
+	   					{"id":"$!{row.lid}","name":"$!{row.name}"}#if($velocityCount != $proList.rows.size()),#end
+	   				#end
+				],
+			#end
+			#if($test2&&$test2.rows.size()>0)
+				"contracts":[
+					#foreach($row in $test2.rows)
+						{"did":"$!{row.did}","mc":"$!{row.iname}"}#if($velocityCount != $test2.rows.size()),#end
+					#end
+				]		
+			#end
+			}
+		]]>
+		</jTemplate>
+		<vDs name="proList" refDtSrc="gzl@test1" paging="1">
+			<filter name = "iname" refParam="itemname"/>
+		</vDs>
+		<vDs name="test2" refDtSrc="gzl@test2"  paging="1">
+			<filter name = "did" refParam="did"/>
+		</vDs>
+	</joutput>
+	<joutput id="rds_test2" name="测试关系型数据库2"  description=""> 
+		<jTemplate>
+		<![CDATA[
+			{
+			#if($test2&&$test2.rows.size()>0)
+				"did":"$!{test2.rows[0].did}",
+				"mc":"$!{test2.rows[0].iname}"
+			#end
+			}
+		]]>
+		</jTemplate>
+		<vDs name="test2" refDtSrc="gzl@test2" paging="1">
+			<filter name = "did" refParam="did"/>
+		</vDs>
+	</joutput>
+</pages>
+

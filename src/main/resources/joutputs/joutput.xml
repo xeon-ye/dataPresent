@@ -1,0 +1,18 @@
+ <joutput id="yszx_zcfbm" name="预算执行，分口径"  description=""> 
+    <jTemplate>
+    <![CDATA[
+      {
+      #if($zcfbm_yszx&&$zcfbm_yszx.rows.size()>0)
+        "data":[
+          #foreach($row in $zcfbm_yszx.rows)
+               {"dw":"$!{row.dw}","yszb":"$!{row.yszb}","sjzc":"$!{row.sjzc}","zxl":"$!{row.zxl}"}#if($velocityCount != $zcfbm_yszx.rows.size()),#end
+             #end
+        ]
+      #end
+      }
+    ]]>
+    </jTemplate>
+    <vDs name="zcfbm_yszx" refDtSrc="zcfbm_yszx" paging="0">
+    <filter name = "ny" refParam="ny"/>
+    </vDs>
+  </joutput>

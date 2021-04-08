@@ -1,0 +1,29 @@
+<src id="zcfbm_yszx" name="" description="" sourceType ="sql" useType="1">
+    <sql>
+    <![CDATA[
+select code,replace(replace(name,'（本级）',''),'(本级)','') dw,sum(ysje) yszb,
+sum(zcs) sjzc,round(case when sum(ysje)=0 then 0 else  sum(zcs)/sum(ysje)*100 end,2) zxl
+from
+(
+SELECT e.code,e.name,sum(money) ysje,0 zcs
+FROM ykjh.budget@zf y,jczl.enterprise@zf e
+where y.year='2021' and e.year='2021' and y.deliverdate between date'2021-01-01' and  last_day(to_date({ny}, 'yyyyMM'))
+and y.enterpriseguid=e.guid
+group by e.code,e.name
+union all
+select t2.code,t2.name,0 yss,sum(t.totalmoney) zcs
+from zfgl.BILLSDETAIL@zf t, jczl.enterprise@zf t2, zfgl.returnvoucher@zf t3
+where t.billno = t3.billno and t2.isbn_code = t3.exchangecode and t.enterpriseguid = t2.guid
+and t.status=4  and t3.returndate between 20210101 and to_number(to_char(last_day(to_date({ny}, 'yyyyMM')),'yyyymmdd'))
+and t.year in ('2021') and t2.year in ('2021') and t3.year in ('2021')  and t. paymode=0
+group by t2.code,t2.name
+)
+where (code <401005 or  code >401099)
+and name not like '%居民委员会%' and name not like '%社区%' and name<>'测试单位' and name not like '%街道办事处%'   and name not like '%专户%'  and name not like '%资金%' and name not like '%人武部%'  and name not like '%消防大队%'
+group by code,name
+order by round(case when sum(ysje)=0 then 0 else  sum(zcs)/sum(ysje)*100 end,2)  desc
+    ]]>
+    </sql>
+    <cols>
+    </cols>
+  </src>

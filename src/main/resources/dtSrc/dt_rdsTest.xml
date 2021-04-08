@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource>
+	<src id="gzl@test1" name="" description="" sourceType ="sql" useType="1">
+		<sql>
+		<![CDATA[
+			select lid,name,remark,a.iid,b.iname from APPROVALLISTS a,items_dep b where a.iid=b.iid and a.name like %{iname}% 
+		]]>
+		</sql>
+		<cols>
+			<col name="iname"/>
+		</cols>
+	</src>
+	<src id="gzl@test2" name="" description="" sourceType ="sql" useType="1">
+		<sql>
+		<![CDATA[
+			select iid,did,iname from ITEMS_DEP where did={did}
+		]]>
+		</sql>
+		<cols>
+			<col name="iname"/>
+		</cols>
+	</src>
+</dataSource>
+
