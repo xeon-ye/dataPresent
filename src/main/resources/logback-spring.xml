@@ -75,13 +75,13 @@
 	</appender>-->
 	
      <!-- configuration中最多允许一个root，别的logger如果没有设置级别则从父级别root继承 -->
-    <root level="INFO">
+    <root level="WARN">
         <appender-ref ref="STDOUT" />
     </root>
  
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
-    <logger name="com.tiger.dataPresent" level="INFO" additivity="false">
+    <logger name="com.tiger.dataPresent" level="INFO" additivity="true">
         <appender-ref ref="info_log" />
         <appender-ref ref="error_log" />
         <!--  <appender-ref ref="asyncKafka" />-->
@@ -89,7 +89,7 @@
  
     <!-- 利用logback输入日志，
     注意：如果不加 additivity="false" 则此logger会将输出转发到自身以及祖先的appender中-->
-    <logger name="com.tiger.dataPresent.controller" level="DEBUG" additivity="false">
+    <logger name="com.tiger.dataPresent.controller" level="INFO" additivity="false">
         <appender-ref ref="info_log" />
         <appender-ref ref="error_log" />
     </logger>

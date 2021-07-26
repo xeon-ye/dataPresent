@@ -56,11 +56,20 @@ public class DataSourceTemplateParser {
 						ds.setProcedure(procedure);
 				    }
 				    String ut = snode.attributeValue("useType");
-				    if("1".equals(ut)||"query".equalsIgnoreCase(ut)){
-				    	ds.setUseType(1);
-				    }else{
+				    if("0".equals(ut)||"etl".equalsIgnoreCase(ut)){
 				    	ds.setUseType(0);
+				    }else{
+				    	ds.setUseType(1);
 				    }
+				    String sMaxRowsPerFetch = snode.attributeValue("maxRowsPerFetch");
+				    int maxRowsPerFetch = 20;
+				    try{
+				    	maxRowsPerFetch = Integer.parseInt(sMaxRowsPerFetch);
+				    }catch(Exception e){
+				    	maxRowsPerFetch = 20;
+				    }
+				    ds.setMaxRowsPerFetch(maxRowsPerFetch);
+				    
 				    if(snode.element("cols")!=null){
 				    	Element fcnode =snode.element("cols");
 					    if(fcnode!=null&&fcnode.elementIterator("col")!=null){

@@ -1,0 +1,23 @@
+
+<html>
+	<head>
+	<title>文件上传</title>
+<script type="text/javascript" src="libs/zepto.js"></script>
+</head>
+<script type="text/javascript">
+function exportExcel(){
+	var p=JSON.stringify({"dataID":"test2","depID":"03","timestamp":"1626073210875","signature":"$2a$10$E/q/T6lyl5qJlRQ68pUU8.aRJqAcoHTDmLIKGTiPVGB/Vdy.zJrwO","queryParams":{"resultID":"53"}});
+	var expForm = document.getElementById("exportExcel"); 
+	document.getElementById("params").value=p;
+	expForm.action = "public/downloadDataFile"; 
+	expForm.method = "POST"; 
+	expForm.submit(); 		
+}
+</script>
+<body>
+	<form id="exportExcel" action="public/downloadDataFile">
+		<input type="hidden" id="params" name="expParams" value="">
+		<input type="button" value="Export" onclick="exportExcel();"/>
+	</form> 
+</body>
+</html>

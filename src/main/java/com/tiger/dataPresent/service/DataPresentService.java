@@ -49,7 +49,6 @@ public class DataPresentService {
 	private static Logger log = LoggerFactory.getLogger(DataPresentService.class);
 	@Autowired
 	private MultilDataSources multilDataSources;
-    private JdbcTemplate jdbcTemplate;
 	@Autowired
 	private TemplatesLoader templatesLoader;
 	@Autowired
@@ -130,8 +129,6 @@ public class DataPresentService {
 		return result;
 	}
 	
-	
-	
 	//从关系型数据库查询数据
 	private void parseDtSrcOfRDB(String jpID,ValuedDs vd,DataSrc ds,JSONObject params,VelocityContext context)throws Exception{
 		String dsName = vd.getName();
@@ -193,7 +190,7 @@ public class DataPresentService {
 		Map parasDef = vd.getFilterFldsMap();
 		String dsId = ds.getId();
 		String[] jtNames = jasyptUtils.parseDataPros(dsId);
-		jdbcTemplate= multilDataSources.getJdbcTemplate(jtNames[0]);
+		JdbcTemplate jdbcTemplate= multilDataSources.getJdbcTemplate(jtNames[0]);
 		jdbcTemplate.execute(proStmt.toString(),new CallableStatementCallback(){
 			public Object doInCallableStatement(CallableStatement cs)throws SQLException, DataAccessException {
 				if(parasIn!=null&&parasIn.size()>0){
@@ -406,7 +403,7 @@ public class DataPresentService {
         //如果没有参数引用
         String dsId = ds.getId();
 		String[] jtNames = jasyptUtils.parseDataPros(dsId);
-		jdbcTemplate= multilDataSources.getJdbcTemplate(jtNames[0]);
+		JdbcTemplate jdbcTemplate= multilDataSources.getJdbcTemplate(jtNames[0]);
   		if(paras==null||paras.length==0){
   			cc = jdbcTemplate.queryForObject(qSql.toString(),Integer.class);
   		}else{

@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource>
-	<src id="gzl@test1" name="" description="" sourceType ="sql" useType="1">
+	<src id="cyzz@test1" name="" description="" sourceType ="sql" maxRowsPerFetch="50">
 		<sql>
 		<![CDATA[
-			select lid,name,remark,a.iid,b.iname from APPROVALLISTS a,items_dep b where a.iid=b.iid and a.name like %{iname}% 
+			select * from EXCELMAP where tid={tid} 
 		]]>
 		</sql>
-		<cols>
-			<col name="iname"/>
-		</cols>
 	</src>
-	<src id="gzl@test2" name="" description="" sourceType ="sql" useType="1">
+	<src id="test2" name="" description="" sourceType ="sql" maxRowsPerFetch="50">
 		<sql>
 		<![CDATA[
-			select iid,did,iname from ITEMS_DEP where did={did}
+			select idx,mc from (select rownum idx,a.* from DJ_CZ a where mc like %{mc}%)  
 		]]>
 		</sql>
-		<cols>
-			<col name="iname"/>
-		</cols>
 	</src>
 </dataSource>
 

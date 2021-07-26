@@ -50,6 +50,9 @@ public class BeanConfigUtils {
 					System.out.println("DruidDataSource:"+dtSrc.getName());
 					mdts.addDataSource(dn, dtSrc);
 					JdbcTemplate jdbcTemplate = jdbcTemplate(dtSrc);
+					if(dn.equals(mdts.getPrimaryDataSource())){
+						mdts.setPrimaryJdbcTemplate(jdbcTemplate);
+					}
 					mdts.addJdbcTemplate(dn, jdbcTemplate);
 				}catch(Exception e){
 					log.error("创建数据连接池时发生错误："+e.toString());

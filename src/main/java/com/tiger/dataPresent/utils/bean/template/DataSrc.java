@@ -8,7 +8,8 @@ public class DataSrc {
 	private String name;
 	private String desc;
 	private int sourceType; //1/sql:通过sql取数；2/procedure：通过存储过程取数
-	private int useType; //2019-04-23数据源的用途。0：用于ETL，默认；1：用于查询
+	private int useType; //2019-04-23数据源的用途。0：用于ETL，1：用于查询，默认；
+	private int maxRowsPerFetch=20; //2021-07 每次取数的最大记录数。外部传递的分页取数限制不能超过该值。
 	private String sql;
 	private ProcedureBean procedure;
 	private List cols;
@@ -89,5 +90,10 @@ public class DataSrc {
 	public void setColMap(Map colMap) {
 		this.colMap = colMap;
 	}
-	
+	public int getMaxRowsPerFetch() {
+		return maxRowsPerFetch;
+	}
+	public void setMaxRowsPerFetch(int maxRowsPerFetch) {
+		this.maxRowsPerFetch = maxRowsPerFetch;
+	}
 }

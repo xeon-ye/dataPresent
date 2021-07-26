@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.alibaba.druid.util.StringUtils;
@@ -16,14 +15,25 @@ public class MultilDataSources {
 	private Map dataSourcesMap = new HashMap();
 	private List jdbcTemplates = new ArrayList();
 	private Map jdbcTemplatesMap = new HashMap();
+	private JdbcTemplate primaryJdbcTemplate=null;
 	private String primaryDataSource;
 	
 	public void addDataSource(String dtName,DataSource dataSource){
 		dataSources.add(dataSource);
 		dataSourcesMap.put(dtName, dataSource);
 	}
+	public String getPrimaryDataSource(){
+		return this.primaryDataSource;
+	}
 	public void setPrimaryDataSource(String primaryDataSource){
 		this.primaryDataSource=primaryDataSource;
+	}
+	
+	public JdbcTemplate getPrimaryJdbcTemplate(){
+		return this.primaryJdbcTemplate;
+	}
+	public void setPrimaryJdbcTemplate(JdbcTemplate jdbcTemplate){
+		this.primaryJdbcTemplate=jdbcTemplate;
 	}
 	public List getDataSouces(){
 		return this.dataSources;
